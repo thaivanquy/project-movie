@@ -49,7 +49,6 @@ export default {
 }
 
 .footer__container-list {
-  margin: 32px;
   list-style: none;
   list-style-type: circle;
 }
