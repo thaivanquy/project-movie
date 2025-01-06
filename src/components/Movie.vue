@@ -1,11 +1,11 @@
 <template>
   <a href="" class="movie__item">
-    <img :src="movie.img" :alt="movie.name_vi">
+    <img :src="imageUrl" :alt="nameVi">
     <h3 class="movie__vi">
-      {{ movie.name_vi }}
+      {{ nameVi  }}
     </h3>
     <h3 class="movie__en">
-      {{ movie.name_en }}
+      {{ nameEn }}
     </h3>
   </a>
 </template>
@@ -14,11 +14,24 @@
 export default {
   name: 'MovieComponent',
   props: {
-    movie: {
-      type: Object,
-      required: true,
+    thumbUrl: {
+      type: String,
+      required: true
     },
+    nameVi: {
+      type: String,
+      required: true
+    },
+    nameEn: {
+      type: String,
+      required: true,
+    }
   },
+  computed: {
+    imageUrl() {
+      return `https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2F${this.thumbUrl}&w=384&q=75`;
+    }
+  }
 }
 </script>
 

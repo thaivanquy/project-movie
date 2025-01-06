@@ -41,8 +41,9 @@
       <h2 class="nomination__head">
         PHIM ĐỀ CỬ
       </h2>
-      <div class="nomination__list">
-        <MovieComponent v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <div v-if="loading">Đang tải dữ liệu...</div>
+      <div class="nomination__list" v-if="!loading">
+        <MovieComponent v-for="movie in recommendedMovies" :key="movie.id" :thumbUrl="movie.thumb" :nameVi="movie.name_vi" :nameEn="movie.name_en" />
       </div>
     </section>
     <section class="newly__section">
@@ -57,8 +58,9 @@
           <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg></span>
         </a>
       </div>
-      <div class="newly__list">
-        <MovieComponent v-for="movie in movies" :key="movie.id" :movie="movie" />
+      <div v-if="loading">Đang tải dữ liệu...</div>
+      <div class="newly__list" v-if="!loading">
+        <MovieComponent v-for="movie in seriesMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name"  />
       </div>
     </section>
     <section class="newly__section">
@@ -74,7 +76,7 @@
         </a>
       </div>
       <div class="newly__list">
-        <MovieComponent v-for="movie in movies" :key="movie.id" :movie="movie" />
+        <MovieComponent v-for="movie in singleMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name"  />
       </div>
     </section>
   </div>
@@ -90,44 +92,37 @@ export default {
   },
   data() {
     return {
-      movies: [
-        {
-          id: 1,
-          name_vi: "The Dark Knight",
-          name_en: "A Batman movie directed by Christopher Nolan.",
-          img: "https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2Ftro-choi-con-muc-phan-2-thumb.jpg&w=384&q=75",
-        },
-        {
-          id: 2,
-          name_vi: "Inception",
-          name_en: "A mind-bending thriller by Christopher Nolan.",
-          img: "https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2Ftro-choi-con-muc-phan-2-thumb.jpg&w=384&q=75",
-        },
-        {
-          id: 3,
-          name_vi: "Avengers: Endgame",
-          name_en: "The final showdown in the Avengers saga.",
-          img: "https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2Ftro-choi-con-muc-phan-2-thumb.jpg&w=384&q=75",
-        },
-        {
-          id: 4,
-          name_vi: "Avengers: Endgame",
-          name_en: "The final showdown in the Avengers saga.",
-          img: "https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2Ftro-choi-con-muc-phan-2-thumb.jpg&w=384&q=75",
-        },
-        {
-          id: 4,
-          name_vi: "Avengers: Endgame",
-          name_en: "The final showdown in the Avengers saga.",
-          img: "https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2Ftro-choi-con-muc-phan-2-thumb.jpg&w=384&q=75",
-        },
-      ],
       typeMovies: typeMovies,
       categoryMovies: categoryMovies,
       nationMovies: nationMovies,
       timeMovies: timeMovies,
       arrangeMovies: arrangeMovies,
     };
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.isLoading;
+    },
+    recommendedMovies() {
+      return this.$store.getters.recommendedMovies;
+    },
+    seriesMovies() {
+      return this.$store.getters.seriesMovies;
+    },
+    singleMovies() {
+      return this.$store.getters.singleMovies;
+    },
+  },
+  watch: {
+
+  },
+  methods: {
+    
+  },
+  created() {
+    this.$store.dispatch("fetchRecommendedMovies");
+    this.$store.dispatch("fetchSeriesMovies");
+    this.$store.dispatch("fetchSingleMovies");
   },
 }
 </script>
