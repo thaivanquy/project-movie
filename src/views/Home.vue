@@ -41,9 +41,9 @@
       <h2 class="nomination__head">
         PHIM ĐỀ CỬ
       </h2>
-      <div v-if="loading">Đang tải dữ liệu...</div>
+      <LoadingComponent />
       <div class="nomination__list" v-if="!loading">
-        <MovieComponent v-for="movie in recommendedMovies" :key="movie.id" :thumbUrl="movie.thumb" :nameVi="movie.name_vi" :nameEn="movie.name_en" />
+        <MovieComponent v-for="movie in recommendedMovies" :key="movie.id" :thumbUrl="movie.thumb" :nameVi="movie.name_vi" :nameEn="movie.name_en" :slug="movie.slug" />
       </div>
     </section>
     <section class="newly__section">
@@ -58,9 +58,9 @@
           <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg></span>
         </a>
       </div>
-      <div v-if="loading">Đang tải dữ liệu...</div>
+      <LoadingComponent />
       <div class="newly__list" v-if="!loading">
-        <MovieComponent v-for="movie in seriesMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name"  />
+        <MovieComponent v-for="movie in seriesMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
     <section class="newly__section">
@@ -75,8 +75,9 @@
           <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg></span>
         </a>
       </div>
-      <div class="newly__list">
-        <MovieComponent v-for="movie in singleMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name"  />
+      <LoadingComponent />
+      <div class="newly__list" v-if="!loading">
+        <MovieComponent v-for="movie in singleMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
   </div>
@@ -84,11 +85,13 @@
 
 <script>
 import MovieComponent from "../components/Movie.vue";
+import LoadingComponent from "../components/Loading.vue";
 import { typeMovies, categoryMovies, nationMovies , timeMovies, arrangeMovies } from '../common/index.js';
 export default {
   name: 'HomeView',
   components: {
     MovieComponent,
+    LoadingComponent,
   },
   data() {
     return {

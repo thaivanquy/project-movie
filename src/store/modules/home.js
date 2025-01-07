@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_ENDPOINTS } from "../../services/api.js";
 
 const state = {
   recommendedMovies: [],
@@ -32,10 +33,9 @@ const actions = {
     commit("SET_ERROR", null);
 
     try {
-      const response = await axios.get(
-        `https://api.newmoviesz.online/api/movies?limit=5`
-      );
+      const response = await axios.get(API_ENDPOINTS.recommendedMovies);
       commit("SET_RECOMMENDED_MOVIES", response.data.data.data);
+      console.log(response.data.data.data);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {
@@ -48,10 +48,9 @@ const actions = {
     commit("SET_ERROR", null);
 
     try {
-      const response = await axios.get(
-        `https://ophim1.com/v1/api/danh-sach/phim-bo?sort_field=modified.time`
-      );
+      const response = await axios.get(API_ENDPOINTS.seriesMovies);
       commit("SET_SERIES_MOVIES", response.data.data.items);
+      console.log(response.data.data.items);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {
@@ -64,9 +63,7 @@ const actions = {
     commit("SET_ERROR", null);
 
     try {
-      const response = await axios.get(
-        `https://ophim1.com/v1/api/danh-sach/phim-le?sort_field=modified.time`
-      );
+      const response = await axios.get(API_ENDPOINTS.singleMovies);
       commit("SET_SINGLE_MOVIES", response.data.data.items);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");

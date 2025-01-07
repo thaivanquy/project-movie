@@ -1,5 +1,5 @@
 <template>
-  <a href="" class="movie__item">
+  <router-link :to="{ name: 'MovieDetailView', params: { slug: slug } }" class="movie__item">
     <img :src="imageUrl" :alt="nameVi">
     <h3 class="movie__vi">
       {{ nameVi  }}
@@ -7,7 +7,7 @@
     <h3 class="movie__en">
       {{ nameEn }}
     </h3>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -25,17 +25,25 @@ export default {
     nameEn: {
       type: String,
       required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
     }
   },
   computed: {
     imageUrl() {
-      return `https://ophim17.cc/_next/image?url=http%3A%2F%2Fimg.ophim1.com%2Fuploads%2Fmovies%2F${this.thumbUrl}&w=384&q=75`;
+      return `https://img.ophim.live/uploads/movies/${this.thumbUrl}`;
     }
   }
 }
 </script>
 
 <style>
+.movie__item:hover {
+  border: 1px solid transparent;
+}
+
 .movie__item img {
   width: 100%;
 }
