@@ -5,11 +5,14 @@
       :slidesToShow="5" 
       :slidesToScroll="5"
       :responsive="responsives"
+      :infinite="false"
+      :draggable="false"
+      v-if="filteredMovies.length > 0"
     >
-      <div v-for="slide in slides" :key="slide.id">
+      <div v-for="slide in filteredMovies" :key="slide._id">
         <div class="slide-content">
-          <a href="">
-            <img :src="slide.url" class="slide-image" />
+          <a :href="'/movie/' + slide.slug">
+            <img :src="'https://img.ophim.live/uploads/movies/' + slide.thumb_url" class="slide-image" />
             <p class="slide-name">{{ slide.name }}</p>
           </a>
         </div>
@@ -28,58 +31,6 @@ export default {
   components: { VueSlickCarousel },
   data() {
     return {
-      slides: [
-        {
-          id: 1,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 2,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 3,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 4,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 5,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 6,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 7,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 8,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 9,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-        {
-          id: 10,
-          url: 'https://img.ophim.live/uploads/movies/solo-leveling-phan-2-vung-len-tu-bong-toi-tbc-thumb.jpg',
-          name: 'Solo Leveling Phần 2 - Vươn Lên Từ Bóng Tối (TBC)'
-        },
-      ],
       responsives: [
         {
           "breakpoint": 1024,
@@ -112,6 +63,59 @@ export default {
       ]
     };
   },
+  props: {
+    category: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    }
+  },
+  computed: {
+    filteredMovies() {
+      return this.isSeries ? this.seriesMoviesByFilter : this.singleMoviesByFilter;
+    },
+    seriesMoviesByFilter() {
+      return this.$store.getters.getSeriesMoviesByFilter;
+    },
+    singleMoviesByFilter() {
+      return this.$store.getters.getSingleMoviesByFilter;
+    },
+    isSeries() {
+      return this.type === 'series';
+    },
+  },
+  methods: {
+    fetchMovies() {
+      const action = this.isSeries
+        ? 'getSeriesMoviesByFilter'
+        : 'getSingleMoviesByFilter';
+      const filterData = {
+        category: this.category,
+        country: this.country,
+        year: this.year
+      };
+
+      const filteredMovies = this.isSeries ? this.seriesMoviesByFilter : this.singleMoviesByFilter;
+
+      if (!filteredMovies || filteredMovies.length === 0) {
+        this.$store.dispatch(action, filterData);
+      }
+    }
+  },
+  created() {
+    this.fetchMovies();
+  }
 };
 </script>
 

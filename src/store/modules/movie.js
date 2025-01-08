@@ -7,6 +7,9 @@ const state = {
   singleMovies: [],
   loading: false,
   error: null,
+  movie: {},
+  seriesMoviesByFilter: [],
+  singleMoviesByFilter: [],
 };
 
 const mutations = {
@@ -24,6 +27,15 @@ const mutations = {
   },
   SET_ERROR(state, error) {
     state.error = error;
+  },
+  SET_MOVIE(state, movie) {
+    state.movie = movie;
+  },
+  SET_SERIES_MOVIES_BY_FILTER(state, movies) {
+    state.seriesMoviesByFilter = movies;
+  },
+  SET_SINGLE_MOVIES_BY_FILTER(state, movies) {
+    state.singleMoviesByFilter = movies;
   },
 };
 
@@ -71,6 +83,58 @@ const actions = {
       commit("SET_LOADING", false);
     }
   },
+  async getMovie({ commit }, slug) {
+    commit("SET_LOADING", true);
+    commit("SET_ERROR", null);
+
+    try {
+      const response = await axios.get(`${API_ENDPOINTS.getMovie}/${slug}`);
+      console.log("API response for movie:", response.data);
+      commit("SET_MOVIE", response.data.data.item);
+    } catch (error) {
+      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+
+  async getSeriesMoviesByFilter(
+    { commit },
+    { category = "", country = "", year = "" }
+  ) {
+    commit("SET_LOADING", true);
+    commit("SET_ERROR", null);
+
+    try {
+      const response = await axios.get(
+        `${API_ENDPOINTS.getSeriesMoviesByFilter(category, country, year)}`
+      );
+      commit("SET_SERIES_MOVIES_BY_FILTER", response.data.data.items);
+    } catch (error) {
+      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
+
+  async getSingleMoviesByFilter(
+    { commit },
+    { category = "", country = "", year = "" }
+  ) {
+    commit("SET_LOADING", true);
+    commit("SET_ERROR", null);
+
+    try {
+      const response = await axios.get(
+        `${API_ENDPOINTS.getSingleMoviesByFilter(category, country, year)}`
+      );
+      commit("SET_SINGLE_MOVIES_BY_FILTER", response.data.data.items);
+    } catch (error) {
+      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
 };
 
 const getters = {
@@ -79,6 +143,9 @@ const getters = {
   singleMovies: (state) => state.singleMovies,
   isLoading: (state) => state.loading,
   hasError: (state) => state.error,
+  getMovie: (state) => state.movie,
+  getSeriesMoviesByFilter: (state) => state.seriesMoviesByFilter,
+  getSingleMoviesByFilter: (state) => state.singleMoviesByFilter,
 };
 
 export default {

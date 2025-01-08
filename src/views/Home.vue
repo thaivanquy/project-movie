@@ -50,7 +50,7 @@
       <div class="newly__wrapper">
         <h2 class="newly__head">
           <span>
-            PHIM LẺ MỚI CẬP NHẬT
+            PHIM Bộ MỚI CẬP NHẬT
           </span>
         </h2>
         <a href="" class="newly__link">
@@ -67,7 +67,7 @@
       <div class="newly__wrapper">
         <h2 class="newly__head">
           <span>
-            PHIM BỘ MỚI CẬP NHẬT
+            PHIM LẺ MỚI CẬP NHẬT
           </span>
         </h2>
         <a href="" class="newly__link">
