@@ -92,7 +92,7 @@
           <h3 class="movie__info-similar-head">
             Phim tương tự
           </h3>
-          <SliderComponent :category="filterMovies.category" :country="filterMovies.country" :year="filterMovies.year" :type="filterMovies.type"/>
+          <SliderComponent :category="filterMovies.category" :country="filterMovies.country" :year="filterMovies.year" :type="filterMovies.type" :slugType="filterMovies.slugType"/>
         </div>
       </div>
     </div>
@@ -150,6 +150,7 @@ export default {
     },
     filterMovies() {
       return {
+        slugType: this.isSeries ? 'phim-bo' : 'phim-le',
         category: this.movie?.category[0]?.slug,
         country: this.movie?.country[0]?.slug,
         year: this.movie?.year,

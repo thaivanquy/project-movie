@@ -8,8 +8,7 @@ const state = {
   loading: false,
   error: null,
   movie: {},
-  seriesMoviesByFilter: [],
-  singleMoviesByFilter: [],
+  moviesByFilter: [],
 };
 
 const mutations = {
@@ -31,11 +30,8 @@ const mutations = {
   SET_MOVIE(state, movie) {
     state.movie = movie;
   },
-  SET_SERIES_MOVIES_BY_FILTER(state, movies) {
-    state.seriesMoviesByFilter = movies;
-  },
-  SET_SINGLE_MOVIES_BY_FILTER(state, movies) {
-    state.singleMoviesByFilter = movies;
+  SET_MOVIES_BY_FILTER(state, movies) {
+    state.moviesByFilter = movies;
   },
 };
 
@@ -98,37 +94,18 @@ const actions = {
     }
   },
 
-  async getSeriesMoviesByFilter(
+  async getMoviesByFilter(
     { commit },
-    { category = "", country = "", year = "" }
+    { slugType = "", category = "", country = "", year = "" }
   ) {
     commit("SET_LOADING", true);
     commit("SET_ERROR", null);
 
     try {
       const response = await axios.get(
-        `${API_ENDPOINTS.getSeriesMoviesByFilter(category, country, year)}`
+        `${API_ENDPOINTS.getMoviesByFilter(slugType, category, country, year)}`
       );
-      commit("SET_SERIES_MOVIES_BY_FILTER", response.data.data.items);
-    } catch (error) {
-      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
-    } finally {
-      commit("SET_LOADING", false);
-    }
-  },
-
-  async getSingleMoviesByFilter(
-    { commit },
-    { category = "", country = "", year = "" }
-  ) {
-    commit("SET_LOADING", true);
-    commit("SET_ERROR", null);
-
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINTS.getSingleMoviesByFilter(category, country, year)}`
-      );
-      commit("SET_SINGLE_MOVIES_BY_FILTER", response.data.data.items);
+      commit("SET_MOVIES_BY_FILTER", response.data.data.items);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {
@@ -144,8 +121,7 @@ const getters = {
   isLoading: (state) => state.loading,
   hasError: (state) => state.error,
   getMovie: (state) => state.movie,
-  getSeriesMoviesByFilter: (state) => state.seriesMoviesByFilter,
-  getSingleMoviesByFilter: (state) => state.singleMoviesByFilter,
+  getMoviesByFilter: (state) => state.moviesByFilter,
 };
 
 export default {

@@ -7,9 +7,9 @@
       :responsive="responsives"
       :infinite="false"
       :draggable="false"
-      v-if="filteredMovies.length > 0"
+      v-if="moviesByFilter.length > 0"
     >
-      <div v-for="slide in filteredMovies" :key="slide._id">
+      <div v-for="slide in moviesByFilter" :key="slide._id">
         <div class="slide-content">
           <a :href="'/movie/' + slide.slug">
             <img :src="'https://img.ophim.live/uploads/movies/' + slide.thumb_url" class="slide-image" />
@@ -79,42 +79,36 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    slugType: {
+      type: String,
+      required: true,
     }
   },
   computed: {
-    filteredMovies() {
-      return this.isSeries ? this.seriesMoviesByFilter : this.singleMoviesByFilter;
-    },
-    seriesMoviesByFilter() {
-      return this.$store.getters.getSeriesMoviesByFilter;
-    },
-    singleMoviesByFilter() {
-      return this.$store.getters.getSingleMoviesByFilter;
+    moviesByFilter() {
+      return this.$store.getters.getMoviesByFilter;
     },
     isSeries() {
       return this.type === 'series';
     },
   },
   methods: {
-    fetchMovies() {
-      const action = this.isSeries
-        ? 'getSeriesMoviesByFilter'
-        : 'getSingleMoviesByFilter';
+    fetchMoviesByFilter() {
       const filterData = {
+        slugType: this.slugType,
         category: this.category,
         country: this.country,
         year: this.year
       };
 
-      const filteredMovies = this.isSeries ? this.seriesMoviesByFilter : this.singleMoviesByFilter;
-
-      if (!filteredMovies || filteredMovies.length === 0) {
-        this.$store.dispatch(action, filterData);
+      if (!this.moviesByFilter || this.moviesByFilter.length === 0) {
+        this.$store.dispatch("getMoviesByFilter", filterData);
       }
     }
   },
   created() {
-    this.fetchMovies();
+    this.fetchMoviesByFilter();
   }
 };
 </script>

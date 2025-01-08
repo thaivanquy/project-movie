@@ -3,8 +3,8 @@
     <div class="home__container-filter">
         <div class="home__container-filter-item">
           <label for="">Loại phim:</label>
-          <select class="form-select">
-            <option selected>- Tất cả -</option>
+          <select class="form-select" v-model="selectedType" @change="handleFilter">
+            <option value="" selected>- Tất cả -</option>
             <option v-for="(typeMovie, index) in typeMovies" :key="index" :value="index">{{ typeMovie }}</option>
           </select>
         </div>
@@ -100,6 +100,7 @@ export default {
       nationMovies: nationMovies,
       timeMovies: timeMovies,
       arrangeMovies: arrangeMovies,
+      selectedType: this.$route.query.type || ""
     };
   },
   computed: {
@@ -114,13 +115,20 @@ export default {
     },
     singleMovies() {
       return this.$store.getters.singleMovies;
-    },
+    }
   },
   watch: {
 
   },
   methods: {
-    
+    handleFilter() {
+      this.$router.push({ 
+        query: { 
+          ...this.$route.query, 
+          type: this.selectedType 
+        } 
+      });
+    }
   },
   created() {
     this.$store.dispatch("fetchRecommendedMovies");
