@@ -199,7 +199,6 @@ export default {
 .movie__info-img {
   display: flex;
   flex-direction: column;
-  padding: 12px 32px 12px 32px;
   width: 100%;
   max-width: 288px;
 }
@@ -471,7 +470,7 @@ export default {
 @media (max-width: 1024px) {
   .movie__info-img {
     width: 25%;
-    padding-left: 8px;
+    padding-left: 12px;
     padding-right: 32px;
   }
 
