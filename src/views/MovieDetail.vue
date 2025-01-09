@@ -16,7 +16,7 @@
           </h1>
           <h2 class="movie__info-sub">
             {{ movie.name }}
-            <a href="" class="movie__info-sub-link">({{ movie.year }})</a>
+            <router-link :to="{ name: 'BrowseView', query: { year: movie.year } }" class="movie__info-sub-link">({{ movie.year }})</router-link>
           </h2>
           <div class="movie__info-episode-list">
             <span class="movie__info-episode-duration">
@@ -47,7 +47,7 @@
               </button>
             </div>
             <div class="movie__info-category-list">
-              <a href="" class="border border-white rounded-pill btn-category" v-for="category in movie.category" :key="category.id">{{ category.name }}</a>
+              <router-link :to="{ name: 'BrowseView', query: { genre: category.slug } }" class="border border-white rounded-pill btn-category" v-for="category in movie.category" :key="category.id">{{ category.name }}</router-link>
             </div>
           </div>
           <div class="movie__info-horizontal">
@@ -62,7 +62,7 @@
               <div class="movie__info-horizontal-item">
                 <span class="movie__info-horizontal-title">QUỐC GIA</span>
                 <span v-for="(country, index) in movie.country" :key="country.id">
-                  <a href="" class="movie__info-horizontal-text">{{ country.name }}<span v-if="index !== movie.country.length - 1">, </span></a>
+                  <router-link :to="{ name: 'BrowseView', query: { country: country.slug } }" class="movie__info-horizontal-text">{{ country.name }}<span v-if="index !== movie.country.length - 1">, </span></router-link>
                 </span>
                 <span v-if="movie.country ==''" class="movie__info-horizontal-text-no">Đang cập nhật...</span>
               </div>

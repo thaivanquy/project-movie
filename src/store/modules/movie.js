@@ -96,14 +96,22 @@ const actions = {
 
   async getMoviesByFilter(
     { commit },
-    { slugType = "", category = "", country = "", year = "" }
+    { slugType, page, sortField, category, country, year }
   ) {
     commit("SET_LOADING", true);
     commit("SET_ERROR", null);
 
     try {
+      console.log({ slugType, page, sortField, category, country, year });
       const response = await axios.get(
-        `${API_ENDPOINTS.getMoviesByFilter(slugType, category, country, year)}`
+        `${API_ENDPOINTS.getMoviesByFilter(
+          slugType,
+          page,
+          sortField,
+          category,
+          country,
+          year
+        )}`
       );
       commit("SET_MOVIES_BY_FILTER", response.data.data.items);
     } catch (error) {

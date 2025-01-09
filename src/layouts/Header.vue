@@ -17,15 +17,15 @@
         <a href="" class="header__container-nav-item">
           Phim hot
         </a>
-        <a href="" class="header__container-nav-item">
+        <router-link :to="{ name: 'SeriesView' }" class="header__container-nav-item" :class="{ active: $route.name === 'SeriesView' }">
           Phim bộ
-        </a>
-        <a href="" class="header__container-nav-item">
+        </router-link>
+        <router-link :to="{ name: 'SingleView' }" class="header__container-nav-item" :class="{ active: $route.name === 'SingleView' }">
           Phim lẻ
-        </a>
-        <a href="" class="header__container-nav-item">
+        </router-link>
+        <router-link :to="{ name: 'NewView' }" class="header__container-nav-item" :class="{ active: $route.name === 'NewView' }">
           Phim mới
-        </a>
+        </router-link>
         <a href="" class="header__container-nav-item">
           FAQs
         </a>
@@ -183,6 +183,10 @@ export default {
   padding: 8px 12px;
   border-radius: 4px !important;
   background-color: #cf2122;
+}
+
+.active {
+  border-bottom: 1px solid #428bca !important;
 }
 
 @media (max-width: 768px) {

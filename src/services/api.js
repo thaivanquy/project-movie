@@ -7,12 +7,6 @@ export const API_ENDPOINTS = {
   singleMovies: `${API_BASE_URL}/danh-sach/phim-le?sort_field=modified.time`,
   recommendedMovies: `${API_RECOMMENDED_MOVIES}/movies?limit=5`,
   getMovie: `${API_BASE_URL}/phim`,
-  getMoviesByFilter: (
-    slugType = "",
-    category = "",
-    country = "",
-    year = "",
-    sortField = ""
-  ) =>
-    `${API_BASE_URL}/danh-sach/${slugType}?page=1&sort_field=${sortField}&category=${category}&country=${country}&year=${year}`,
+  getMoviesByFilter: (slugType, page, sortField, category, country, year) =>
+    `${API_BASE_URL}/danh-sach/${slugType}?page=${page}&sort_field=${sortField}&category=${category}&country=${country}&year=${year}`,
 };

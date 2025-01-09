@@ -1,8 +1,8 @@
 <template>
-  <div class="browse-container">
-    <FilterComponent @filter-changed="onFilterChanged"/>
+  <div class="series-container">
+    <FilterComponent/>
     <LoadingComponent />
-    <div class="movies-list" v-if="!loading">
+    <div class="series-list" v-if="!loading">
       <MovieComponent v-for="movie in moviesByFilter" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
   </div>
@@ -13,17 +13,11 @@ import FilterComponent from "../components/Filter.vue";
 import MovieComponent from "../components/Movie.vue";
 import LoadingComponent from "../components/Loading.vue";
 export default {
-  name: 'BrowseView',
+  name: 'SeriesView',
   components: {
     FilterComponent,
     LoadingComponent,
     MovieComponent
-  },
-  methods: {
-    onFilterChanged(query) {
-      console.log('changed', query);
-      this.$store.dispatch("getMoviesByFilter", query);
-    },
   },
   computed: {
     loading() {
@@ -35,21 +29,21 @@ export default {
   },
   created() {
     const filterData = {
-      slugType: this.$route.query.type || "",
+      slugType: this.$route.query.type || "phim-bo",
       page: this.$route.query.page ?? 1,
       sortField: this.$route.query.sort || "",
       category: this.$route.query.genre || "",
       country: this.$route.query.country || "",
       year: this.$route.query.year || "",
     };
-    console.log('created', filterData)
+
     this.$store.dispatch("getMoviesByFilter", filterData);
   },
 }
 </script>
 
 <style>
-.browse-container {
+.series-container {
   width: 100%;
   max-width: 1344px;
   margin: auto;
@@ -57,7 +51,7 @@ export default {
   box-sizing: border-box;
 }
 
-.movies-list {
+.series-list {
   margin-top: 16px;
   width: 100%;
   display: grid;
