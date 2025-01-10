@@ -43,7 +43,6 @@ const actions = {
     try {
       const response = await axios.get(API_ENDPOINTS.recommendedMovies);
       commit("SET_RECOMMENDED_MOVIES", response.data.data.data);
-      console.log(response.data.data.data);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {
@@ -58,7 +57,6 @@ const actions = {
     try {
       const response = await axios.get(API_ENDPOINTS.seriesMovies);
       commit("SET_SERIES_MOVIES", response.data.data.items);
-      console.log(response.data.data.items);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {
@@ -85,7 +83,6 @@ const actions = {
 
     try {
       const response = await axios.get(`${API_ENDPOINTS.getMovie}/${slug}`);
-      console.log("API response for movie:", response.data);
       commit("SET_MOVIE", response.data.data.item);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
@@ -102,7 +99,6 @@ const actions = {
     commit("SET_ERROR", null);
 
     try {
-      console.log({ slugType, page, sortField, category, country, year });
       const response = await axios.get(
         `${API_ENDPOINTS.getMoviesByFilter(
           slugType,
@@ -113,7 +109,7 @@ const actions = {
           year
         )}`
       );
-      commit("SET_MOVIES_BY_FILTER", response.data.data.items);
+      commit("SET_MOVIES_BY_FILTER", response.data.data);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {

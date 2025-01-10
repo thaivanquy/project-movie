@@ -3,8 +3,9 @@
     <FilterComponent/>
     <LoadingComponent />
     <div class="single-list" v-if="!loading">
-      <MovieComponent v-for="movie in moviesByFilter" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+      <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
+    <PaginationComponent :totalPage="Math.floor(moviesByFilter.params.pagination.totalItems / moviesByFilter.params.pagination.totalItemsPerPage)" :currentPage="currentPage" v-show="!loading" @page-changed="onPageChanged" />
   </div>
 </template>
 
@@ -12,12 +13,27 @@
 import FilterComponent from "../components/Filter.vue";
 import MovieComponent from "../components/Movie.vue";
 import LoadingComponent from "../components/Loading.vue";
+import PaginationComponent from "../components/Pagination.vue";
 export default {
   name: 'SingleView',
   components: {
     FilterComponent,
     LoadingComponent,
-    MovieComponent
+    MovieComponent,
+    PaginationComponent
+  },
+  methods: {
+    onPageChanged(query) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      const updatedQuery = {
+        ...query,
+        slugType: "phim-le"
+      };
+      this.$store.dispatch("getMoviesByFilter", updatedQuery);
+    },
   },
   computed: {
     loading() {
@@ -57,5 +73,25 @@ export default {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
+}
+
+@media (max-width: 1407px) {
+  .single-container {
+    padding: 48px;
+  }
+
+  .single-list {
+    grid-template-columns: repeat(3, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .single-container {
+    padding: 8px;
+  }
+
+  .single-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

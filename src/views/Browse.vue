@@ -3,8 +3,9 @@
     <FilterComponent @filter-changed="onFilterChanged"/>
     <LoadingComponent />
     <div class="movies-list" v-if="!loading">
-      <MovieComponent v-for="movie in moviesByFilter" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+      <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
+    <PaginationComponent :totalPage="Math.floor(moviesByFilter.params.pagination.totalItems / moviesByFilter.params.pagination.totalItemsPerPage)" :currentPage="currentPage" v-show="!loading" @page-changed="onPageChanged" />
   </div>
 </template>
 
@@ -12,16 +13,24 @@
 import FilterComponent from "../components/Filter.vue";
 import MovieComponent from "../components/Movie.vue";
 import LoadingComponent from "../components/Loading.vue";
+import PaginationComponent from "../components/Pagination.vue";
 export default {
   name: 'BrowseView',
   components: {
     FilterComponent,
     LoadingComponent,
-    MovieComponent
+    MovieComponent,
+    PaginationComponent
   },
   methods: {
     onFilterChanged(query) {
-      console.log('changed', query);
+      this.$store.dispatch("getMoviesByFilter", query);
+    },
+    onPageChanged(query) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
       this.$store.dispatch("getMoviesByFilter", query);
     },
   },
@@ -31,6 +40,9 @@ export default {
     },
     moviesByFilter() {
       return this.$store.getters.getMoviesByFilter;
+    },
+    currentPage() {
+      return this.moviesByFilter?.params?.pagination?.currentPage || 1;
     }
   },
   created() {
@@ -42,7 +54,7 @@ export default {
       country: this.$route.query.country || "",
       year: this.$route.query.year || "",
     };
-    console.log('created', filterData)
+
     this.$store.dispatch("getMoviesByFilter", filterData);
   },
 }
@@ -63,5 +75,25 @@ export default {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
+}
+
+@media (max-width: 1407px) {
+  .browse-container {
+    padding: 48px;
+  }
+
+  .movies-list {
+    grid-template-columns: repeat(3, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .browse-container {
+    padding: 8px;
+  }
+
+  .movies-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>
