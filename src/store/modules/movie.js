@@ -9,6 +9,7 @@ const state = {
   error: null,
   movie: {},
   moviesByFilter: [],
+  searchMovies: [],
 };
 
 const mutations = {
@@ -32,6 +33,9 @@ const mutations = {
   },
   SET_MOVIES_BY_FILTER(state, movies) {
     state.moviesByFilter = movies;
+  },
+  SET_SEARCH_MOVIES(state, movies) {
+    state.searchMovies = movies;
   },
 };
 
@@ -116,6 +120,22 @@ const actions = {
       commit("SET_LOADING", false);
     }
   },
+  async searchMovies({ commit }, keyword) {
+    commit("SET_LOADING", true);
+    commit("SET_ERROR", null);
+
+    try {
+      console.log("dispatch", keyword);
+      const response = await axios.get(
+        `${API_ENDPOINTS.searchMovies(keyword)}`
+      );
+      commit("SET_SEARCH_MOVIES", response.data.data);
+    } catch (error) {
+      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
 };
 
 const getters = {
@@ -126,6 +146,7 @@ const getters = {
   hasError: (state) => state.error,
   getMovie: (state) => state.movie,
   getMoviesByFilter: (state) => state.moviesByFilter,
+  searchMovies: (state) => state.searchMovies,
 };
 
 export default {

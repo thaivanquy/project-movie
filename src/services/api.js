@@ -9,4 +9,6 @@ export const API_ENDPOINTS = {
   getMovie: `${API_BASE_URL}/phim`,
   getMoviesByFilter: (slugType, page, sortField, category, country, year) =>
     `${API_BASE_URL}/danh-sach/${slugType}?page=${page}&sort_field=${sortField}&category=${category}&country=${country}&year=${year}`,
+  searchMovies: (keyword) =>
+    `${API_BASE_URL}/tim-kiem?keyword=${keyword}&page=1`,
 };
