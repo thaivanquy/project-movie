@@ -4,9 +4,9 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg>
     </div>
     <div class="header__container-logo">
-      <a href="/">
+      <router-link :to="{ name: 'HomeView' }">
         Phim<span class="header__container-highlight">Inn</span>
-      </a>
+      </router-link>
     </div>
     <div class="header__container-nav">
       <div class="header__container-nav-list">
@@ -39,7 +39,7 @@
     <div class="mobile__menu-overlay" id="mobileMenu" v-if="isMenu" @click="toggleMenu">
       <div class="mobile__menu-container" @click.stop>
         <div class="mobile__menu-login">
-          <a href="">
+          <a href="" @click="toggleMenu">
             Đăng nhập
           </a>
         </div>
@@ -48,18 +48,18 @@
           <a href="" class="mobile__menu-item">
             Phim hot
           </a>
-          <a href="" class="mobile__menu-item">
+          <router-link :to="{ name: 'SeriesView' }" class="mobile__menu-item" @click.native="toggleMenu">
             Phim bộ
-          </a>
-          <a href="" class="mobile__menu-item">
+          </router-link>
+          <router-link :to="{ name: 'SingleView' }" class="mobile__menu-item" @click.native="toggleMenu">
             Phim lẻ
-          </a>
-          <a href="" class="mobile__menu-item">
+          </router-link>
+          <router-link :to="{ name: 'NewView' }" class="mobile__menu-item" @click.native="toggleMenu">
             Phim mới
-          </a>
-          <a href="" class="mobile__menu-item">
+          </router-link>
+          <router-link :to="{ name: 'FaqView' }" class="mobile__menu-item" @click.native="toggleMenu">
             FAQs
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
