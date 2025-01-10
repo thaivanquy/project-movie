@@ -45,7 +45,7 @@ export default {
 }
 
 .footer__container-link {
-  color: rgb(66, 139, 202);
+  color: rgb(66, 139, 202) !important;
 }
 
 .footer__container-list {

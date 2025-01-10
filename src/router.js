@@ -7,6 +7,7 @@ import SeriesView from "./views/Series.vue";
 import SingleView from "./views/Single.vue";
 import NewView from "./views/New.vue";
 import SearchView from "./views/Search.vue";
+import FaqView from "./views/Faq.vue";
 
 Vue.use(Router);
 
@@ -47,6 +48,11 @@ const router = new Router({
       path: "/seach",
       name: "SearchView",
       component: SearchView,
+    },
+    {
+      path: "/faqs",
+      name: "FaqView",
+      component: FaqView,
     },
   ],
 });

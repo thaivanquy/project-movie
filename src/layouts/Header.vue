@@ -26,9 +26,9 @@
         <router-link :to="{ name: 'NewView' }" class="header__container-nav-item" :class="{ active: $route.name === 'NewView' }">
           Phim mới
         </router-link>
-        <a href="" class="header__container-nav-item">
+        <router-link :to="{ name: 'FaqView' }" class="header__container-nav-item" :class="{ active: $route.name === 'FaqView' }">
           FAQs
-        </a>
+        </router-link>
       </div>
       <div class="header__container-nav-login">
         <a href="">
