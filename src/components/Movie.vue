@@ -39,11 +39,7 @@ export default {
 }
 </script>
 
-<style>
-.movie__item:hover {
-  border: 1px solid transparent;
-}
-
+<style scoped>
 .movie__item img {
   width: 100%;
 }

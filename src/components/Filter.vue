@@ -35,6 +35,17 @@
           <option v-for="(arrangeMovie, index) in arrangeMovies" :key="index" :value="index">{{ arrangeMovie }}</option>
         </select>
       </div>
+      <div class="home__container-filter-item" v-if="$route.name !== 'HomeView'">
+        <label for="">Hiển thị:</label>
+        <div class="view__list">
+          <div class="view__item" @click="handleToggleView('grid')" :class="{ active: displayMode == 'grid' }">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M149.333 56v80c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V56c0-13.255 10.745-24 24-24h101.333c13.255 0 24 10.745 24 24zm181.334 240v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm32-240v80c0 13.255 10.745 24 24 24H488c13.255 0 24-10.745 24-24V56c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24zm-32 80V56c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.256 0 24.001-10.745 24.001-24zm-205.334 56H24c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24zM0 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H24c-13.255 0-24 10.745-24 24zm386.667-56H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zm0 160H488c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H386.667c-13.255 0-24 10.745-24 24v80c0 13.255 10.745 24 24 24zM181.333 376v80c0 13.255 10.745 24 24 24h101.333c13.255 0 24-10.745 24-24v-80c0-13.255-10.745-24-24-24H205.333c-13.255 0-24 10.745-24 24z"></path></svg>
+          </div>
+          <div class="view__item" @click="handleToggleView('flex')" :class="{ active: displayMode == 'flex' }">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 96c0 26.51-21.49 48-48 48S0 122.51 0 96s21.49-48 48-48 48 21.49 48 48zM48 208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm0 160c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm96-236h352c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h352c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H144c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -55,6 +66,7 @@ export default {
       selectedNation: this.$route.query.country || "",
       selectedTime: this.$route.query.year || "",
       selectedArrange: this.$route.query.sort || "",
+      displayMode: 'grid',
     };
   },
   methods: {
@@ -107,16 +119,20 @@ export default {
       }
 
       this.$emit("filter-changed", queryChanged);
-    }
+    },
+    handleToggleView(viewMode) {
+      this.displayMode = viewMode;
+      this.$emit("update-display-mode", viewMode);
+    },
   },
 }
 </script>
 
-<style>
+<style scoped>
 .home__container-filter {
   background-color: #091c2d;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr) auto;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -137,6 +153,34 @@ export default {
 
 .home__container-filter-item select {
   cursor: pointer;
+}
+
+.home__container-filter-item:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.view__list {
+  display: flex;
+}
+
+.view__list .view__item {
+  cursor: pointer;
+}
+
+.view__list .view__item svg {
+  height: 31px;
+  fill: #7a7a7b;
+  padding: 3px;
+}
+
+.view__list .view__item:not(:last-child) {
+  margin-right: 5px !important;
+}
+
+.view__item.active > svg {
+  fill: #fff;
 }
 
 @media (max-width: 768px) {

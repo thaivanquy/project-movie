@@ -41,7 +41,7 @@ const router = new Router({
       component: SingleView,
     },
     {
-      path: "/mew",
+      path: "/new",
       name: "NewView",
       component: NewView,
     },

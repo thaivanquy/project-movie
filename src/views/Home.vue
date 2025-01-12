@@ -24,7 +24,7 @@
       </div>
       <LoadingComponent />
       <div class="newly__list" v-if="!loading">
-        <MovieComponent v-for="movie in seriesMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+        <MovieComponent v-for="movie in seriesMovies?.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
     <section class="newly__section">
@@ -41,7 +41,7 @@
       </div>
       <LoadingComponent />
       <div class="newly__list" v-if="!loading">
-        <MovieComponent v-for="movie in singleMovies.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+        <MovieComponent v-for="movie in singleMovies?.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
   </div>

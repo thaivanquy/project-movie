@@ -18,8 +18,11 @@ export default {
   },
   methods: {
     handleKeyup(event) {
-      console.log(event.target.value);
-      this.$store.dispatch("searchMovies", event.target.value);
+      if (event.target.value.trim() == '') {
+        this.$store.dispatch("searchMovies");
+      } else {
+        this.$store.dispatch("searchMovies", event.target.value);
+      }
     }
   },
   computed: {

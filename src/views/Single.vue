@@ -1,11 +1,14 @@
 <template>
   <div class="single-container">
-    <FilterComponent/>
+    <FilterComponent @update-display-mode="handleDisplayMode"/>
     <LoadingComponent />
-    <div class="single-list" v-if="!loading">
+    <div class="single-list" v-if="!loading && this.displayMode == 'grid'">
       <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
-    <PaginationComponent :totalPage="Math.floor(moviesByFilter.params.pagination.totalItems / moviesByFilter.params.pagination.totalItemsPerPage)" :currentPage="currentPage" v-show="!loading" @page-changed="onPageChanged" />
+    <div v-if="!loading && this.displayMode == 'flex'">
+      <MovieFlexComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" :time="movie.time" :country="movie?.country" :category="movie?.category" :rate="movie.tmdb?.vote_average" />
+    </div>
+    <PaginationComponent :totalPage="Math.floor(moviesByFilter?.params?.pagination?.totalItems / moviesByFilter?.params?.pagination?.totalItemsPerPage)" :currentPage="currentPage" v-show="!loading" @page-changed="onPageChanged" />
   </div>
 </template>
 
@@ -14,13 +17,20 @@ import FilterComponent from "../components/Filter.vue";
 import MovieComponent from "../components/Movie.vue";
 import LoadingComponent from "../components/Loading.vue";
 import PaginationComponent from "../components/Pagination.vue";
+import MovieFlexComponent from "../components/MovieFlex.vue";
 export default {
   name: 'SingleView',
+  data() {
+    return {
+      displayMode: 'grid',
+    };
+  },
   components: {
     FilterComponent,
     LoadingComponent,
     MovieComponent,
-    PaginationComponent
+    PaginationComponent,
+    MovieFlexComponent
   },
   methods: {
     onPageChanged(query) {
@@ -34,6 +44,9 @@ export default {
       };
       this.$store.dispatch("getMoviesByFilter", updatedQuery);
     },
+    handleDisplayMode(view) {
+      this.displayMode = view;
+    },
   },
   computed: {
     loading() {
@@ -41,6 +54,9 @@ export default {
     },
     moviesByFilter() {
       return this.$store.getters.getMoviesByFilter;
+    },
+    currentPage() {
+      return this.moviesByFilter?.params?.pagination?.currentPage || 1;
     }
   },
   created() {
@@ -58,7 +74,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .single-container {
   width: 100%;
   max-width: 1344px;

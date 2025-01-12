@@ -166,7 +166,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .movie__poster {
   position: relative;
   width: 100%;
