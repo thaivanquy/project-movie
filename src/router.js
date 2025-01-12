@@ -8,6 +8,7 @@ import SingleView from "./views/Single.vue";
 import NewView from "./views/New.vue";
 import SearchView from "./views/Search.vue";
 import FaqView from "./views/Faq.vue";
+import TopView from "./views/Top.vue";
 
 Vue.use(Router);
 
@@ -53,6 +54,11 @@ const router = new Router({
       path: "/faqs",
       name: "FaqView",
       component: FaqView,
+    },
+    {
+      path: "/top",
+      name: "TopView",
+      component: TopView,
     },
   ],
 });

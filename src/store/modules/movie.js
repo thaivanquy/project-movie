@@ -136,6 +136,35 @@ const actions = {
       commit("SET_LOADING", false);
     }
   },
+  async getMoviesByTop(
+    { commit },
+    { slugType, page, sortField, category, country, year }
+  ) {
+    commit("SET_LOADING", true);
+    commit("SET_ERROR", null);
+
+    try {
+      const response = await axios.get(
+        `${API_ENDPOINTS.getMoviesByFilter(
+          slugType,
+          page,
+          sortField,
+          category,
+          country,
+          year
+        )}`
+      );
+      if (slugType === "phim-bo") {
+        commit("SET_SERIES_MOVIES", response.data.data);
+      } else if (slugType === "phim-le") {
+        commit("SET_SINGLE_MOVIES", response.data.data);
+      }
+    } catch (error) {
+      commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
+    } finally {
+      commit("SET_LOADING", false);
+    }
+  },
 };
 
 const getters = {

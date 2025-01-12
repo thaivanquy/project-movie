@@ -7,7 +7,7 @@
     :margin-pages="2"
     :click-handler="clickCallback"
     :prev-text="'Trang trước'"
-    :next-text="'Trang kế'"
+    :next-text="'Trang sau'"
     :container-class="'pagination'"
     :page-class="'page-item'">
     </paginate>
