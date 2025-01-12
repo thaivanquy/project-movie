@@ -12,15 +12,18 @@
             </h3>
             <h3 class="name__en">
               <router-link :to="{ name: 'MovieDetailView', params: { slug: slug } }">{{ nameEn }}</router-link>
+              <span>
+                <router-link :to="{ name: 'BrowseView', query: { year: year } }"><span class="movie__content-year">(</span>{{ year }}<span class="movie__content-year">)</span></router-link>
+              </span>
             </h3>
           </div>
           <div class="movie__content-meta">
             <p>
               {{ time }}
             </p>
-            <p v-for="(_country, index) in country" :key="_country.id">
-              <router-link :to="{ name: 'BrowseView', query: { country: country.slug } }">
-                {{ _country.name }}<span v-if="index !== country.length - 1">, </span>
+            <p v-if="country.length > 0">
+              <router-link :to="{ name: 'BrowseView', query: { country: country[0]?.slug } }">
+                {{ country[0]?.name }}
               </router-link>
             </p>
           </div>
@@ -30,7 +33,7 @@
         </div> -->
         <div class="movie__content-item">
           <div class="movie__content-genres" v-if="category.length > 0">
-            <router-link :to="{ name: 'BrowseView', query: { genre: category[0].slug } }" :key="category[0]?._id">
+            <router-link :to="{ name: 'BrowseView', query: { genre: category[0]?.slug } }">
               {{ category[0]?.name }}
             </router-link>
           </div>
@@ -79,6 +82,10 @@ export default {
       required: true,
     },
     rate: {
+      type: Number,
+      required: true,
+    },
+    year: {
       type: Number,
       required: true,
     }
@@ -147,6 +154,14 @@ export default {
   font-weight: 400;
   line-height: 24px;
   color: rgb(122, 122, 122) !important;
+}
+
+.name__en a {
+  margin-right: 5px;
+}
+
+.movie__content-year {
+  color: #fff;
 }
 
 .movie__content-meta p:first-child {
