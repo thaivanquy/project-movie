@@ -1,6 +1,8 @@
 <template>
   <router-link :to="{ name: 'MovieDetailView', params: { slug: slug } }" class="movie__item">
-    <img :src="imageUrl" :alt="nameVi">
+    <div class="movie__item-cover">
+      <img :src="imageUrl" :alt="nameVi">
+    </div>
     <h3 class="movie__vi">
       {{ nameVi  }}
     </h3>
@@ -40,8 +42,21 @@ export default {
 </script>
 
 <style scoped>
+.movie__item-cover {
+  width: 100%;
+  height: 384px !important;
+  overflow: hidden;
+  transition: opacity .15s ease-in-out;
+}
+
 .movie__item img {
   width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.movie__item-cover:hover img {
+  transform: scale(1.05);
 }
 
 .movie__vi {
