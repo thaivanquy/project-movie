@@ -7,9 +7,9 @@
       :responsive="responsives"
       :infinite="false"
       :draggable="false"
-      v-if="moviesByFilter.items.length > 0"
+      v-if="moviesByFilter?.items?.length > 0"
     >
-      <div v-for="slide in moviesByFilter.items" :key="slide._id">
+      <div v-for="slide in moviesByFilter?.items" :key="slide._id">
         <div class="slide-content">
           <a :href="'/movie/' + slide.slug">
             <img :src="'https://img.ophim.live/uploads/movies/' + slide.thumb_url" class="slide-image" />
@@ -64,53 +64,19 @@ export default {
     };
   },
   props: {
-    category: {
-      type: String,
+    moviesByFilter: {
+      type: [Array, Object],
       required: true
-    },
-    country: {
-      type: String,
-      required: true
-    },
-    year: {
-      type: Number,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    slugType: {
-      type: String,
-      required: true,
     }
   },
   computed: {
-    moviesByFilter() {
-      return this.$store.getters.getMoviesByFilter;
-    },
-    isSeries() {
-      return this.type === 'series';
-    },
+
   },
   methods: {
-    fetchMoviesByFilter() {
-      const filterData = {
-        slugType: this.slugType,
-        page: 1,
-        sortField: '',
-        category: this.category,
-        country: this.country,
-        year: this.year
-      };
 
-      if (!this.moviesByFilter || this.moviesByFilter.length === 0) {
-        this.$store.dispatch("getMoviesByFilter", filterData);
-      }
-    }
   },
   created() {
-    this.fetchMoviesByFilter();
+    
   }
 };
 </script>

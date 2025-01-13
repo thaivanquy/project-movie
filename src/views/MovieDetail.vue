@@ -92,7 +92,7 @@
           <h3 class="movie__info-similar-head">
             Phim tương tự
           </h3>
-          <SliderComponent :category="filterMovies.category" :country="filterMovies.country" :year="filterMovies.year" :type="filterMovies.type" :slugType="filterMovies.slugType"/>
+          <SliderComponent :moviesByFilter="moviesByFilter"/>
         </div>
       </div>
     </div>
@@ -121,6 +121,12 @@ export default {
   methods: {
     handleOpenModal() {
       this.isShow = true;
+    },
+    async fetchMovieDetail() {
+      await this.$store.dispatch("getMovie", this.slug);
+    },
+    async fetchMoviesByFilter() {
+      await this.$store.dispatch("getMoviesByFilter", this.filterMovies);
     }
   },
   computed: {
@@ -151,17 +157,23 @@ export default {
     filterMovies() {
       return {
         slugType: this.isSeries ? 'phim-bo' : 'phim-le',
+        page: 1,
+        sortField: '',
         category: this.movie?.category[0]?.slug,
         country: this.movie?.country[0]?.slug,
         year: this.movie?.year,
         type: this.movie?.type
       }
+    },
+    moviesByFilter() {
+      return this.$store.getters.getMoviesByFilter;
     }
   },
   mounted() {
   },
-  created() {
-    this.$store.dispatch("getMovie", this.slug);
+  async created() {
+    await this.fetchMovieDetail();
+    await this.fetchMoviesByFilter();
   },
 }
 </script>
