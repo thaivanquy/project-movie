@@ -12,9 +12,7 @@
             </h3>
             <h3 class="name__en">
               <router-link :to="{ name: 'MovieDetailView', params: { slug: slug } }">{{ nameEn }}</router-link>
-              <span>
-                <router-link :to="{ name: 'BrowseView', query: { year: year } }"><span class="movie__content-year">(</span>{{ year }}<span class="movie__content-year">)</span></router-link>
-              </span>
+              <router-link :to="{ name: 'BrowseView', query: { year: year } }"><span class="movie__content-year">(</span>{{ year }}<span class="movie__content-year">)</span></router-link>
             </h3>
           </div>
           <div class="movie__content-meta">
