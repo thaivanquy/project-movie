@@ -44,14 +44,12 @@ export default {
 <style scoped>
 .movie__item-cover {
   width: 100%;
-  height: 384px !important;
   overflow: hidden;
   transition: opacity .15s ease-in-out;
 }
 
 .movie__item img {
   width: 100%;
-  height: 100%;
   transition: transform 0.3s ease;
 }
 
