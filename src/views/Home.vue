@@ -165,20 +165,8 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .home__container-filter {
-    padding: 8px;
-  }
-
-  .home__container-filter-item {
-    padding-right: 8px;
-  }
-
   .home__container {
     padding: 8px;
-  }
-
-  .home__container-filter {
-    grid-template-columns: repeat(2, 3fr);
   }
 }
 </style>

@@ -55,7 +55,7 @@ export default {
 
 .movie__item img {
   width: 100%;
-  min-height: 384px;
+  height: 384px;
   transition: transform 0.3s ease;
 }
 
@@ -99,6 +99,12 @@ export default {
 @media (max-width: 768px) {
   .movie__item {
     width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie__item img {
+    height: 290px;
   }
 }
 

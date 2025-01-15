@@ -45,6 +45,10 @@ export default {
   box-sizing: border-box;
 }
 
+.search__wrapper {
+  padding: 8px;
+}
+
 .search__input {
   background-color: #fff;
   border-color: #dbdbdb;
@@ -60,26 +64,19 @@ export default {
 .search__list {
   margin-top: 16px;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1407px) {
   .seach__container {
     padding: 48px;
   }
-  .search__list {
-    grid-template-columns: repeat(3, 2fr);
-  }
 }
 
 @media (max-width: 768px) {
   .seach__container {
     padding: 8px;
-  }
-  .search__list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
