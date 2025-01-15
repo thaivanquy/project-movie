@@ -58,7 +58,7 @@ export default {
   background-color: #0b1e2f;
   width: 100%;
   height: 90%;
-  max-width: 1280px;
+  max-width: 1344px;
   color: #fff;
   overflow: hidden;
 }
