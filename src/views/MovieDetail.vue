@@ -169,6 +169,11 @@ export default {
       return this.$store.getters.getMoviesByFilter;
     }
   },
+  metaInfo() {
+    return {
+      title: this.movie.name,
+    };
+  },
   mounted() {
   },
   async created() {

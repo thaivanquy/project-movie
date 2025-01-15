@@ -20,6 +20,9 @@ const router = new Router({
       path: "/",
       name: "HomeView",
       component: HomeView,
+      meta: {
+        title: "Xem phim online chất lượng cao",
+      },
     },
     {
       path: "/movie/:slug",
@@ -35,31 +38,49 @@ const router = new Router({
       path: "/series",
       name: "SeriesView",
       component: SeriesView,
+      meta: {
+        title: "Phim bộ | Phim bộ hay tuyển chọn",
+      },
     },
     {
       path: "/single",
       name: "SingleView",
       component: SingleView,
+      meta: {
+        title: "Phim lẻ | Phim lẻ hay tuyển chọn",
+      },
     },
     {
       path: "/new",
       name: "NewView",
       component: NewView,
+      meta: {
+        title: "Phim mới | Phim mới hay tuyển chọn",
+      },
     },
     {
       path: "/seach",
       name: "SearchView",
       component: SearchView,
+      meta: {
+        title: "Tìm kiếm phim",
+      },
     },
     {
       path: "/faqs",
       name: "FaqView",
       component: FaqView,
+      meta: {
+        title: "Câu hỏi thường gặp - FAQ",
+      },
     },
     {
       path: "/top",
       name: "TopView",
       component: TopView,
+      meta: {
+        title: "Phim hot, Top phim xem nhiều nhất",
+      },
     },
     {
       path: "/watch/:slug",
@@ -67,6 +88,15 @@ const router = new Router({
       component: WatchView,
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  } else {
+    document.title = "Xem phim online chất lượng cao";
+  }
+  next();
 });
 
 export default router;

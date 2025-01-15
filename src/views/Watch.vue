@@ -47,11 +47,13 @@
         <div class="watch__episodes-item" :class="{ disabled: episode.slug === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">Tập {{ episode.name }}</div>
       </div>
     </section>
+    <ModalMovieSimilarComponent />
   </div>
 </template>
 
 <script>
 import VideoComponent from '../components/Video.vue';
+import ModalMovieSimilarComponent from '../components/ModalMovieSimilar.vue';
 
 export default {
   name: 'WatchView',
@@ -62,7 +64,8 @@ export default {
     };
   },
   components: {
-    VideoComponent
+    VideoComponent,
+    ModalMovieSimilarComponent
   },
   computed: {
     slug() {
@@ -82,6 +85,11 @@ export default {
     movie(newMovie) {
       this.setDefaultVideo(newMovie);
     }
+  },
+  metaInfo() {
+    return {
+      title: this.movie.name,
+    };
   },
   methods: {
     handleSelectEpisode(episode) {
