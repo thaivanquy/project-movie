@@ -28,7 +28,7 @@
                 </button>
               </div>
               <div class="watch__button-similar">
-                <button type="button" class="btn btn-outline-success btn-similar">
+                <button type="button" class="btn btn-outline-success btn-similar" @click="handleOpenModalSimilar">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M488 64h-8v20c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12V64H96v20c0 6.6-5.4 12-12 12H44c-6.6 0-12-5.4-12-12V64h-8C10.7 64 0 74.7 0 88v336c0 13.3 10.7 24 24 24h8v-20c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v20h320v-20c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v20h8c13.3 0 24-10.7 24-24V88c0-13.3-10.7-24-24-24zM96 372c0 6.6-5.4 12-12 12H44c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40zm0-96c0 6.6-5.4 12-12 12H44c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40zm0-96c0 6.6-5.4 12-12 12H44c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40zm288 224c0 6.6-5.4 12-12 12H140c-6.6 0-12-5.4-12-12V284c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v120zm0-176c0 6.6-5.4 12-12 12H140c-6.6 0-12-5.4-12-12V108c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v120zm96 144c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40zm0-96c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40zm0-96c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40z"></path></svg>
                   <span>Phim tương tự</span>
                 </button>
@@ -47,7 +47,7 @@
         <div class="watch__episodes-item" :class="{ disabled: episode.slug === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">Tập {{ episode.name }}</div>
       </div>
     </section>
-    <ModalMovieSimilarComponent />
+    <ModalMovieSimilarComponent :isShowModalSimilar="isShowModalSimilar" @update:isShowModalSimilar="isShowModalSimilar = $event" :moviesByFilter="moviesByFilter"/>
   </div>
 </template>
 
@@ -61,6 +61,7 @@ export default {
     return {
       videoPlaying: '',
       currentVideo: '',
+      isShowModalSimilar: false,
     };
   },
   components: {
@@ -68,15 +69,33 @@ export default {
     ModalMovieSimilarComponent
   },
   computed: {
+    isSeries() {
+      return this.movie.type === 'series';
+    },
     slug() {
       return this.$route.params.slug;
     },
     movie() {
       return this.$store.getters.getMovie;
     },
+    filterMovies() {
+      return {
+        slugType: this.isSeries ? 'phim-bo' : 'phim-le',
+        page: 1,
+        sortField: '',
+        category: this.movie?.category[0]?.slug,
+        country: this.movie?.country[0]?.slug,
+        year: this.movie?.year,
+        type: this.movie?.type
+      }
+    },
+    moviesByFilter() {
+      return this.$store.getters.getMoviesByFilter;
+    }
   },
-  created() {
-    this.$store.dispatch("getMovie", this.slug);
+  async created() {
+    await this.fetchMovieDetail();
+    await this.fetchMoviesByFilter();
   },
   mounted() {
     this.setDefaultVideo(this.movie);
@@ -84,6 +103,13 @@ export default {
   watch: {
     movie(newMovie) {
       this.setDefaultVideo(newMovie);
+    },
+    isShowModalSimilar(isShow) {
+      if (isShow) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';  
+      }
     }
   },
   metaInfo() {
@@ -105,6 +131,15 @@ export default {
           this.currentVideo = movie.episodes[0].server_data[0].slug;
         }
       }
+    },
+    handleOpenModalSimilar() {
+      this.isShowModalSimilar = true;
+    },
+    async fetchMovieDetail() {
+      await this.$store.dispatch("getMovie", this.slug);
+    },
+    async fetchMoviesByFilter() {
+      await this.$store.dispatch("getMoviesByFilter", this.filterMovies);
     }
   }
 };

@@ -177,6 +177,8 @@ export default {
   mounted() {
   },
   async created() {
+    document.body.style.overflow = ''; // Remove overflow from show ModoalMovieSimilar that redirect
+
     await this.fetchMovieDetail();
     await this.fetchMoviesByFilter();
   },
