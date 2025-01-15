@@ -86,28 +86,19 @@ export default {
 .single-list {
   margin-top: 16px;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1407px) {
   .single-container {
     padding: 48px;
   }
-
-  .single-list {
-    grid-template-columns: repeat(3, 2fr);
-  }
 }
 
 @media (max-width: 768px) {
   .single-container {
     padding: 8px;
-  }
-
-  .single-list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

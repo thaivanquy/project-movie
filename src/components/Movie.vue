@@ -42,6 +42,11 @@ export default {
 </script>
 
 <style scoped>
+.movie__item {
+  width: 20%;
+  padding: 12px 8px;
+}
+
 .movie__item-cover {
   width: 100%;
   overflow: hidden;
@@ -50,6 +55,7 @@ export default {
 
 .movie__item img {
   width: 100%;
+  min-height: 384px;
   transition: transform 0.3s ease;
 }
 
@@ -63,6 +69,9 @@ export default {
   color: rgb(219, 219, 219);
   line-height: 18px;
   margin-top: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .movie__en {
@@ -70,6 +79,27 @@ export default {
   font-weight: 400;
   color: rgb(122, 122, 122);
   line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1407px) {
+  .movie__item {
+    width: 25%;
+  }
+}
+
+@media (max-width: 1215px) {
+  .movie__item {
+    width: 33.3333%;
+  }
+}
+
+@media (max-width: 768px) {
+  .movie__item {
+    width: 50%;
+  }
 }
 
 </style>

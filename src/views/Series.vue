@@ -86,28 +86,19 @@ export default {
 .series-list {
   margin-top: 16px;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1407px) {
   .series-container {
     padding: 48px;
   }
-
-  .series-list {
-    grid-template-columns: repeat(3, 2fr);
-  }
 }
 
 @media (max-width: 768px) {
   .series-container {
     padding: 8px;
-  }
-
-  .series-list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

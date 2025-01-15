@@ -111,28 +111,19 @@ export default {
 .top__list {
   margin-top: 16px;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 1407px) {
   .top__container {
     padding: 48px;
   }
-
-  .top__list {
-    grid-template-columns: repeat(3, 2fr);
-  }
 }
 
 @media (max-width: 768px) {
   .top__container {
     padding: 8px;
-  }
-
-  .top__list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

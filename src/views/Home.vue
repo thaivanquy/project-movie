@@ -117,9 +117,8 @@ export default {
 
 .nomination__list {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .newly__wrapper {
@@ -139,9 +138,8 @@ export default {
 }
 .newly__list {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .newly__link {
@@ -164,11 +162,6 @@ export default {
   .home__container {
     padding: 48px;
   }
-
-  .nomination__list,
-  .newly__list {
-    grid-template-columns: repeat(3, 2fr);
-  }
 }
 
 @media (max-width: 768px) {
@@ -186,11 +179,6 @@ export default {
 
   .home__container-filter {
     grid-template-columns: repeat(2, 3fr);
-  }
-
-  .nomination__list,
-  .newly__list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
