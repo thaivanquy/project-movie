@@ -125,7 +125,6 @@ const actions = {
     commit("SET_ERROR", null);
 
     try {
-      console.log("dispatch", keyword);
       const response = await axios.get(
         `${API_ENDPOINTS.searchMovies(keyword)}`
       );
