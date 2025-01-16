@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="watch__episodes" v-if="movie && movie?.episodes && movie?.episodes?.length > 0">
-        <div class="watch__episodes-item" :class="{ disabled: episode.slug === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">Tập {{ episode.name }}</div>
+        <div class="watch__episodes-item" :class="{ disabled: episode.name === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">Tập {{ episode.name }}</div>
       </div>
     </section>
     <ModalMovieSimilarComponent :isShowModalSimilar="isShowModalSimilar" @update:isShowModalSimilar="isShowModalSimilar = $event" :moviesByFilter="moviesByFilter" />
@@ -102,6 +102,10 @@ export default {
   },
   watch: {
     movie(newMovie) {
+      if (newMovie.episode_current == 'Trailer') {
+        this.$router.push({ name: 'MovieDetailView', params: { slug: newMovie.slug } });
+      }
+
       this.setDefaultVideo(newMovie);
     },
     isShowModalSimilar(isShow) {
@@ -120,7 +124,7 @@ export default {
   methods: {
     handleSelectEpisode(episode) {
       this.videoPlaying = episode.link_embed;
-      this.currentVideo = episode.slug
+      this.currentVideo = episode.name
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -132,7 +136,7 @@ export default {
           this.videoPlaying = movie.episodes[0].server_data[0].link_embed;
         }
         if (this.currentVideo === '') {
-          this.currentVideo = movie.episodes[0].server_data[0].slug;
+          this.currentVideo = movie.episodes[0].server_data[0].name;
         }
       }
     },
