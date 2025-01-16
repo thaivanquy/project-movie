@@ -104,7 +104,7 @@ export default {
 
 @media (max-width: 480px) {
   .movie__item img {
-    height: 290px;
+    height: 250px;
   }
 }
 

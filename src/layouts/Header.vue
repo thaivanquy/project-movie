@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="mobile__menu-overlay" id="mobileMenu" v-if="isMenu" @click="toggleMenu">
-      <div class="mobile__menu-container" @click.stop>
+      <div class="mobile__menu-container" @click.stop :class="{ 'menu-visible': isMenu }">
         <div class="mobile__menu-login">
           <a href="" @click="toggleMenu">
             Đăng nhập
@@ -91,8 +91,8 @@ export default {
   },
 }
 </script>
-
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
 .header__container {
   width: 100%;
   display: flex;
@@ -128,10 +128,21 @@ export default {
 }
 
 .header__container-logo a {
-  font-family: 'Brush Script MT', cursive;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+  font-family: 'Dancing Script', cursive;
+  background: linear-gradient(-90deg,#adfbda,#35c3ff 30%,#fda399 50%,#76d880 70%,#ebf38b 90%,#adfbda);
+  -webkit-animation: logo-animation 20s linear infinite alternate;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@keyframes logo-animation {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+      background-position: -500px 0;
+  }
 }
 
 .header__container-highlight {
@@ -227,6 +238,7 @@ export default {
     background-color: #0b1e30;
     padding: 15px 15px;
     box-sizing: border-box;
+    animation: slideIn 0.3s ease-in-out;
   }
 
   .mobile__menu-login {
@@ -257,6 +269,21 @@ export default {
     box-sizing: border-box;
     color: #fff;
     gap: 10px;
+  }
+
+  .menu-visible {
+    animation: slideIn 0.3s ease-in-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 }
 </style>

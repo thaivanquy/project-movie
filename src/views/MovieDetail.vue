@@ -320,6 +320,7 @@ export default {
 }
 
 .btn-share-facbook {
+  padding: 7px 16px !important;
   display: flex !important;
   align-items: center;
   background-color: #485ecb !important;
@@ -327,15 +328,15 @@ export default {
 }
 
 .btn-share-facbook svg {
-  width: 12px;
-  height: 12px;
+  width: 19px;
+  height: 19px;
   fill: #fff;
   margin-right: 8px;
 }
 
 .btn-share-facbook span {
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
 }
@@ -352,6 +353,10 @@ export default {
   gap: 10px;
 }
 
+.btn-add-collection {
+  padding: 7px 16px !important;
+}
+
 .btn-add-collection:hover {
   background-color: #3e8ed0 !important;
 }
@@ -361,15 +366,15 @@ export default {
 }
 
 .btn-add-collection svg {
-  width: 12px;
-  height: 12px;
+  width: 19px;
+  height: 19px;
   fill: #fff;
   margin-right: 8px;
 }
 
 .btn-add-collection span {
   color: #428bca;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 28px;
 }

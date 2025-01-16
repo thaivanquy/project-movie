@@ -100,4 +100,10 @@ export default {
   fill : #fff;
 }
 
+@media (max-width: 768px) {
+  .modal__content {
+    padding: 0;
+  }
+}
+
 </style>

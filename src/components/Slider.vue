@@ -106,14 +106,18 @@ export default {
 }
 
 ::v-deep .slick-prev {
-  top: -36px;
+  width: 35px;
+  height: 35px;
+  top: -31px;
   left: auto;
-  right: 75px;
+  right: 60px;
 }
 
 ::v-deep .slick-next {
-  top: -36px;
-  right: 31px;
+  width: 35px;
+  height: 35px;
+  top: -31px;
+  right: 15px;
 }
 
 ::v-deep .slick-arrow::before {
