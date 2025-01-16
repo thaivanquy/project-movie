@@ -121,6 +121,10 @@ export default {
     handleSelectEpisode(episode) {
       this.videoPlaying = episode.link_embed;
       this.currentVideo = episode.slug
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     },
     setDefaultVideo(movie) {
       if (movie && movie?.episodes && movie?.episodes?.length > 0) {
