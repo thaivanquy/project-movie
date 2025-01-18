@@ -93,12 +93,13 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 17px;
-  height: 17px;
+  width: 17px !important;
+  height: 17px !important;
+  color: #fff;
 }
 
 .btn-close-modal svg {
-  fill : #fff !important;
+  fill: currentColor !important;
 }
 
 @media (max-width: 768px) {
