@@ -1,6 +1,6 @@
 <template>
   <div class="new-container">
-    <FilterComponent @update-display-mode="handleDisplayMode"/>
+    <FilterComponent @update-display-mode="handleDisplayMode" :displayMode="displayMode"/>
     <LoadingComponent />
     <div class="new-list" v-if="!loading && this.displayMode == 'grid'">
       <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />

@@ -10,6 +10,7 @@ import SearchView from "../views/Search.vue";
 import FaqView from "../views/Faq.vue";
 import TopView from "../views/Top.vue";
 import WatchView from "../views/Watch.vue";
+import BrowseFlexView from "../views/BrowseFlex.vue";
 
 Vue.use(Router);
 
@@ -86,6 +87,11 @@ const router = new Router({
       path: "/watch/:slug",
       name: "WatchView",
       component: WatchView,
+    },
+    {
+      path: "/:type/:value",
+      name: "BrowseFlexView",
+      component: BrowseFlexView,
     },
   ],
   scrollBehavior() {

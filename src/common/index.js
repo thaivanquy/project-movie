@@ -33,6 +33,7 @@ export const categoryMovies = {
   "bi-an": "Bí ẩn",
   "hoc-duong": "Học Đường",
   "kinh-dien": "Kinh Điển",
+  "phieu-luu": "Phiêu Lưu",
 };
 
 export const nationMovies = {

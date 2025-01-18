@@ -53,6 +53,12 @@
 import { typeMovies, categoryMovies, nationMovies , timeMovies, arrangeMovies } from '../common/index.js';
 export default {
   name: 'FilterComponent',
+  props: {
+    displayMode: { 
+      type: String,
+      default: 'grid'
+    }
+  },
   data() {
     return {
       typeMovies: typeMovies,
@@ -62,12 +68,18 @@ export default {
       arrangeMovies: arrangeMovies,
       selectedType: this.$route.query.type || "",
       page: this.$route.query.page || 1,
-      selectedCategory: this.$route.query.genre || "",
-      selectedNation: this.$route.query.country || "",
-      selectedTime: this.$route.query.year || "",
+      selectedCategory: this.getSelectedCategory(),
+      selectedNation: this.getSelectedNation(),
+      selectedTime: this.getSelectedTime(),
       selectedArrange: this.$route.query.sort || "",
-      displayMode: 'grid',
     };
+  },
+  watch: {
+    '$route'() {
+      this.selectedCategory = this.getSelectedCategory();
+      this.selectedNation = this.getSelectedNation();
+      this.selectedTime = this.getSelectedTime();
+    },
   },
   methods: {
     handleFilter() {
@@ -121,8 +133,16 @@ export default {
       this.$emit("filter-changed", queryChanged);
     },
     handleToggleView(viewMode) {
-      this.displayMode = viewMode;
       this.$emit("update-display-mode", viewMode);
+    },
+    getSelectedCategory() {
+      return this.$route.query.genre || (this.$route.params.type === "genren" ? this.$route.params.value : "") || "";
+    },
+    getSelectedNation() {
+      return this.$route.query.country || (this.$route.params.type === "country" ? this.$route.params.value : "") || "";
+    },
+    getSelectedTime() {
+      return this.$route.query.year || (this.$route.params.type === "year" ? this.$route.params.value : "") || "";
     },
   },
 }

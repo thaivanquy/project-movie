@@ -12,7 +12,7 @@
             </h3>
             <h3 class="name__en">
               <router-link :to="{ name: 'MovieDetailView', params: { slug: slug } }">{{ nameEn }}</router-link>
-              <router-link :to="{ name: 'BrowseView', query: { year: year } }"><span class="movie__content-year">(</span>{{ year }}<span class="movie__content-year">)</span></router-link>
+              <router-link :to="{ name: 'BrowseFlexView', params: { type: 'year', value: year } }"><span class="movie__content-year">(</span>{{ year }}<span class="movie__content-year">)</span></router-link>
             </h3>
           </div>
           <div class="movie__content-meta">
@@ -20,7 +20,7 @@
               {{ time }}
             </p>
             <p v-if="country.length > 0">
-              <router-link :to="{ name: 'BrowseView', query: { country: country[0]?.slug } }">
+              <router-link :to="{ name: 'BrowseFlexView', params: { type: 'country', value: country[0]?.slug } }">
                 {{ country[0]?.name }}
               </router-link>
             </p>
@@ -31,8 +31,8 @@
         </div> -->
         <div class="movie__content-item">
           <div class="movie__content-genres" v-if="category.length > 0">
-            <router-link :to="{ name: 'BrowseView', query: { genre: category[0]?.slug } }">
-              {{ category[0]?.name }}
+            <router-link :to="{ name: 'BrowseFlexView', params: { type: 'genren', value: c?.slug } }" v-for="c in category" :key="c.slug">
+              {{ c?.name }}
             </router-link>
           </div>
           <div class="movie__content-rating">
@@ -232,6 +232,16 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .movie__content-genres {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .movie__content-genres a {
+    font-size: 10px;
+    margin-bottom: 8px !important;
   }
 }
 
