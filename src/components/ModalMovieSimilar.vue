@@ -94,10 +94,11 @@ export default {
   justify-content: center;
   cursor: pointer;
   --bs-btn-close-opacity: 1 !important;
+  color: #fff !important;
 }
 
 .btn-close svg {
-  fill : #fff;
+  fill : #fff !important;
 }
 
 @media (max-width: 768px) {
