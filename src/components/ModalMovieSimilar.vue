@@ -93,8 +93,6 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  --bs-btn-close-modal-opacity: 1 !important;
-  color: #fff !important;
   width: 17px;
   height: 17px;
 }
