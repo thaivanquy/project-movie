@@ -89,12 +89,10 @@ export default {
 }
 
 .btn-close-modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   cursor: pointer;
   width: 17px !important;
-  height: 17px !important;
+  height: 30px !important;
   color: #fff;
 }
 
