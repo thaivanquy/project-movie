@@ -111,9 +111,9 @@ export default {
   width: 100%;
   max-width: 150px;
   margin-right: 32px;
-  flex-basis: auto;
+  /* flex-basis: auto;
   flex-grow: 0;
-  flex-shrink: 0;
+  flex-shrink: 0; */
 }
 
 .movie__item-left img {
