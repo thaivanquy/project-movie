@@ -3,11 +3,11 @@
     <FilterComponent />
     <section class="nomination__section">
       <h2 class="nomination__head">
-        PHIM ĐỀ CỬ
+        PHIM CHIẾU RẠP VIỆT NAM
       </h2>
       <LoadingComponent />
       <div class="nomination__list" v-if="!loading">
-        <MovieComponent v-for="movie in recommendedMovies" :key="movie.id" :thumbUrl="movie.thumb" :nameVi="movie.name_vi" :nameEn="movie.name_en" :slug="movie.slug" />
+        <MovieComponent v-for="movie in recommendedMovies" :key="movie.id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
     <section class="newly__section">
@@ -24,7 +24,7 @@
       </div>
       <LoadingComponent />
       <div class="newly__list" v-if="!loading && Array.isArray(seriesMovies)">
-        <MovieComponent v-for="movie in seriesMovies?.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+        <MovieComponent v-for="movie in seriesMovies" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
     <section class="newly__section">
@@ -41,7 +41,7 @@
       </div>
       <LoadingComponent />
       <div class="newly__list" v-if="!loading && Array.isArray(singleMovies)">
-        <MovieComponent v-for="movie in singleMovies?.slice(0, 10)" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+        <MovieComponent v-for="movie in singleMovies" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
       </div>
     </section>
   </div>

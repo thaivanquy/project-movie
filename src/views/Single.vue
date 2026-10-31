@@ -3,10 +3,10 @@
     <FilterComponent @update-display-mode="handleDisplayMode" :displayMode="displayMode"/>
     <LoadingComponent />
     <div class="single-list" v-if="!loading && this.displayMode == 'grid'">
-      <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+      <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
     <div v-if="!loading && this.displayMode == 'flex'">
-      <MovieFlexComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" :time="movie.time" :country="movie?.country" :category="movie?.category" :rate="movie.tmdb?.vote_average" :year="movie?.year"/>
+      <MovieFlexComponent v-for="movie in moviesByFilter.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" :time="movie.time" :country="movie?.country" :category="movie?.category" :rate="movie.tmdb?.vote_average" :year="movie?.year"/>
     </div>
     <PaginationComponent :totalPage="Math.floor(moviesByFilter?.params?.pagination?.totalItems / moviesByFilter?.params?.pagination?.totalItemsPerPage)" :currentPage="currentPage" v-show="!loading" @page-changed="onPageChanged" />
   </div>

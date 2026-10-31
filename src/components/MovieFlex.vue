@@ -48,10 +48,11 @@
 </template>
 
 <script>
+import { getPosterURL } from '../utils/common.js';
 export default {
   name: 'MovieFlexComponent',
   props: {
-    thumbUrl: {
+    posterUrl: {
       type: String,
       required: true
     },
@@ -90,7 +91,7 @@ export default {
   },
   computed: {
     imageUrl() {
-      return `https://img.ophim.live/uploads/movies/${this.thumbUrl}`;
+      return getPosterURL(this.posterUrl);
     }
   }
 }

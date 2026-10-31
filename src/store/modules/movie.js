@@ -9,7 +9,7 @@ const state = {
   error: null,
   movie: {},
   moviesByFilter: [],
-  searchMovies: [],
+  searchMovies: { items: [] },
 };
 
 const mutations = {
@@ -46,7 +46,7 @@ const actions = {
 
     try {
       const response = await axios.get(API_ENDPOINTS.recommendedMovies);
-      commit("SET_RECOMMENDED_MOVIES", response.data.data.data);
+      commit("SET_RECOMMENDED_MOVIES", response.data.data.items);
     } catch (error) {
       commit("SET_ERROR", error.message || "Đã xảy ra lỗi khi tải dữ liệu");
     } finally {

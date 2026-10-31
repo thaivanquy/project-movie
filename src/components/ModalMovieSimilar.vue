@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="modal__content">
-        <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug"/>
+        <MovieComponent v-for="movie in moviesByFilter.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug"/>
       </div>
     </div>
   </div>

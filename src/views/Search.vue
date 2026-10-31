@@ -3,27 +3,36 @@
     <div class="search__wrapper">
       <input type="text" class="search__input" placeholder="Nhập tên phim..." @keyup="handleKeyup">
     </div>
-    <div class="search__list" v-if="!loading">
-      <MovieComponent v-for="movie in searchMovies.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+    <div class="loading__wrapper" v-if="loading">
+      <LoadingComponent />
+    </div>
+    <div class="search__list" v-if="!loading && searchMovies.items.length > 0">
+      <MovieComponent v-for="movie in searchMovies.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
     </div>
   </div>
 </template>
 
 <script>
+import LoadingComponent from "../components/Loading.vue";
 import MovieComponent from "../components/Movie.vue";
+import { debounce } from "../utils/common.js";
 export default {
   name: "SearchView",
   components: {
     MovieComponent,
+    LoadingComponent
+  },
+  created() {
+    this.$store.commit("SET_SEARCH_MOVIES", { items: [] });
   },
   methods: {
-    handleKeyup(event) {
+    handleKeyup: debounce(function(event) {
       if (event.target.value.trim() == '') {
         this.$store.dispatch("searchMovies");
       } else {
         this.$store.dispatch("searchMovies", event.target.value);
       }
-    }
+    }, 300)
   },
   computed: {
     loading() {

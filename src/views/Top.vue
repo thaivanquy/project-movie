@@ -6,12 +6,12 @@
     <el-tabs v-model="activeTab">
       <el-tab-pane label="PHIM BỘ" name="first">
         <div class="top__list">
-          <MovieComponent v-for="movie in seriesTop.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+          <MovieComponent v-for="movie in seriesTop.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
         </div>
       </el-tab-pane>
       <el-tab-pane label="PHIM LẺ" name="second">
         <div class="top__list">
-          <MovieComponent v-for="movie in singleTop.items" :key="movie._id" :thumbUrl="movie.thumb_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
+          <MovieComponent v-for="movie in singleTop.items" :key="movie._id" :posterUrl="movie.poster_url" :nameVi="movie.name" :nameEn="movie.origin_name" :slug="movie.slug" />
         </div>
       </el-tab-pane>
     </el-tabs>

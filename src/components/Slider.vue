@@ -12,7 +12,7 @@
       <div v-for="slide in moviesByFilter?.items" :key="slide._id">
         <div class="slide-content">
           <a :href="'/movie/' + slide.slug">
-            <img :src="'https://img.ophim.live/uploads/movies/' + slide.thumb_url" class="slide-image" />
+            <img :src="posterUrl(slide.poster_url)" class="slide-image" />
             <p class="slide-name">{{ slide.name }}</p>
           </a>
         </div>
@@ -25,6 +25,7 @@
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import { getPosterURL } from '../utils/common.js';
 
 export default {
   name: 'SliderComponent',
@@ -70,7 +71,9 @@ export default {
     }
   },
   computed: {
-
+    posterUrl() {
+      return (url) => getPosterURL(url);
+    }
   },
   methods: {
 

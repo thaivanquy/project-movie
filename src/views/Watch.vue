@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="watch__episodes" v-if="movie && movie?.episodes && movie?.episodes?.length > 0">
-        <div class="watch__episodes-item" :class="{ disabled: episode.name === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">Tập {{ episode.name }}</div>
+        <div class="watch__episodes-item" :class="{ disabled: episode.name === currentVideo }" v-for="episode in movie.episodes[0].server_data" :key="episode.slug" @click="handleSelectEpisode(episode)">{{ episode.name }}</div>
       </div>
     </section>
     <ModalMovieSimilarComponent :isShowModalSimilar="isShowModalSimilar" @update:isShowModalSimilar="isShowModalSimilar = $event" :moviesByFilter="moviesByFilter" />

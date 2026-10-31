@@ -3,11 +3,11 @@
     <LoadingComponent />
     <div class="movie__container" v-if="!loading">
       <div class="movie__poster" :style="{
-          backgroundImage: 'url(' + posterUrl + ')'
+          backgroundImage: 'url(' + imageUrl + ')'
         }"></div>
       <div class="movie__info">
         <div class="movie__info-img">
-          <img :src="imageUrl" :alt="this.slug">
+          <img :src="posterUrl" :alt="this.slug">
           <router-link :to="{ name: 'WatchView', params: { slug: movie.slug } }" v-if="movie?.episode_current !== 'Trailer'" class="btn btn-danger btn-watch"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>XEM PHIM</router-link>
         </div>
         <div class="movie__info-detail">
@@ -102,7 +102,7 @@
 
 <script>
 import SliderComponent from '../components/Slider.vue';
-import { getYouTubeThumbnail, getTrailerURL } from '../utils/common.js';
+import { getYouTubeThumbnail, getTrailerURL, getPosterURL, getThumbnailURL } from '../utils/common.js';
 import ModalTrailerComponent from '../components/ModalTrailer.vue';
 import LoadingComponent from "../components/Loading.vue";
 
@@ -140,10 +140,10 @@ export default {
       return this.$route.params.slug;
     },
     posterUrl() {
-      return `https://img.ophim.live/uploads/movies/${this.slug}-poster.jpg`;
+      return this.movie.poster_url ? getPosterURL(this.movie.poster_url) : '';
     },
     imageUrl() {
-      return `https://img.ophim.live/uploads/movies/${this.slug}-thumb.jpg`;
+      return this.movie.thumb_url ? getThumbnailURL(this.movie.thumb_url) : '';
     },
     movie() {
       return this.$store.getters.getMovie;
